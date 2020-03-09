@@ -1,5 +1,5 @@
 # UniTime - Dockerized
-A dockerized version of UniTime, the Comprehensive University Timetabling System
-https://www.unitime.org
+<p>A dockerized version of <a href="https://www.unitime.org">UniTime</a>, the Comprehensive University Timetabling System</p>
 
-Created by Caleb Foglio
+
+<p><i>Created by Caleb Foglio</i></p>
