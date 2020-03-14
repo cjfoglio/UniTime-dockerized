@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<script name="Example script" permission="Scripts" engine="ECMAScript" created="Wed Apr 24 16:01:43 CEST 2019">
+  <description><![CDATA[This scripts shows a few perks that are available.]]></description>
+  <parameter name="dept" label="Department" type="department"/>
+  <parameter name="name" label="Enter your name" type="string"/>
+  <parameter name="type" label="Room type" type="reference(RoomType)"/>
+  <parameter name="file" label="Input file" type="file"/>
+  <parameter name="greeting" label="Select greeting" type="enum(Ahoj,Hello,Hola,Bonjour,Guten Tag)" default="Hello"/>
+  <parameter name="subjects" label="Subject area(s)" type="subjects"/>
+  <body><![CDATA[// Logging
+if (name != null) {
+  log.info(greeting + ' ' + name + '!');
+} else {
+  log.info(greeting + '!');
+  log.warn('No name was given.');
+}
+
+// Reading an input (text) file
+if (file != null) {
+  var lines = file.getString('utf-8').split('\n');
+  for (var i = 0; i < lines.length; i++) {
+    log.debug((1 + i) + ': ' + lines[i]);
+  }
+} else {
+  log.error('No file to read.', null);
+}
+
+// Writing an output file
+var file = log.createOutput('test', 'txt');
+var out = new java.io.PrintWriter(new java.io.FileWriter(file));
+out.println('This is a test.');
+out.println('Žlutoucký kun úpel dábelské ódy.');
+out.flush(); out.close();
+
+// Special parameters
+log.info('Current academic session: ' + session.getLabel());
+if (dept != null) {
+  log.info('Selected department: ' + dept.getDeptCode() + ' - ' + dept.getLabel());
+}
+if (subjects != null) {
+  log.info('Selected subject areas:');
+  for (var i = 0; i < subjects.size(); i++) {
+    var subject = subjects.get(i);
+    log.info('      ' + subject.getSubjectAreaAbbreviation() + ' - ' + subject.getTitle());
+  }
+}
+if (type != null) {
+  var t = hibSession.createQuery('from RoomType where reference = :reference').setString('reference', type).uniqueResult();
+  log.info('Room type: ' + t.getLabel() + ' (' + t.countRooms(session.getUniqueId()) + ' rooms in ' + session.getLabel() + ')');
+}
+
+// Progress
+log.setStatus('Counting to ten. Slowly.', 10);
+for (var i = 0; i < 9; i++) {
+  java.lang.Thread.sleep(i * 1000);
+  log.incProgress();
+  log.debug('-- ' + (1 + i));
+}]]></body>
+</script>
