@@ -15,3 +15,6 @@ git clone https://github.com/cjfoglio/UniTime-dockerized.git
 docker-compose up
 ```
 3. You can access UniTime in a web browser at: http://localhost:8080/UniTime/
+
+### Video
+View a video of the execution of the project here: https://youtu.be/iOAxVWrKhqQ
