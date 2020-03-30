@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+
+  db:
+    image: mysql:latest
+    restart: always
+    volumes:
+      - unitime-vol:/var/lib/mysql
+      - ./unitime-4/doc/mysql/*sql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: unitime
+      MYSQL_DATABASE": timetable
+    expose:
+      - 3306
+    networks:
+      - uni-network
+
+  tomcat:
+    image: tomcat:latest
+    volumes:
+      - ./unitime-4/web/UniTime.war:/usr/local/tomcat/webapps/UniTime.war
+      - ./unitime-4:/usr/local/tomcat/webapps/root
+      - ./mysql-connector-java-8.0.19.jar:/usr/local/tomcat/lib/mysql-connector-java-8.0.19.jar
+    environment:
+      JAVA_OPTS: "-Djava.awt.headless=true -Xmx2g -XX:+UseConcMarkSweepGC"
+      JDBC_URL: "jdbc:mysql://db:3306/timetable"
+      JDBC_USER: root
+      JDBC_PASS: unitime
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    depends_on:
+      - db
+    networks:
+      - uni-network
+    command: ["catalina.sh","run"]
+
+volumes:
+  unitime-vol:
+
+networks:
+  uni-network:
+    driver: bridge
