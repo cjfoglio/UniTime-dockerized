@@ -1,7 +1,6 @@
 # UniTime - Dockerized
-A dockerized version of <a href="https://www.unitime.org">UniTime</a>, the Comprehensive University Timetabling System 
-<br></br>
-<i>Created by Caleb Foglio</i>
+A dockerized version of [UniTime](https://www.unitime.org), the Comprehensive University Timetabling System
+
 ### How to Run
 1. Download and clone this repo.
 
@@ -18,3 +17,5 @@ docker-compose up
 
 ### Video
 View a video of the execution of the project here: https://youtu.be/iOAxVWrKhqQ
+
+>*Created by Caleb Foglio* 
