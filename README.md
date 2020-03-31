@@ -18,4 +18,4 @@ docker-compose up
 ### Video
 View a video of the execution of the project here: https://youtu.be/iOAxVWrKhqQ
 
->*Created by Caleb Foglio* 
+*Created by Caleb Foglio* 
